@@ -1,9 +1,7 @@
 ## Work Instructions
 - Run *Infer_nnUNet.py* to segment data (provide path & segmentation model path)
     - ```python Infer_nnUNet.py infer --data_folder "/home/claire/data/nifti/COVID_nifti" --model_folder "/home/alex/nnunet_runs/500"```
-- Convert segmented results to Python data with *SegmentationParser.py*
-- Read CSV with *DataParser.py*
-- Compare both results, generate and print statistics
+- Run or make object of **ResultChecker.py** object to compare results, generate and print statistics
 
 ## File Descriptions
 *DataParser.py*
@@ -20,3 +18,6 @@
 *Resultchecker.py*
 - Generate statistics given segmented results in comparison with annotated CSV
 - Use method print_stats()
+
+*LungMask_nnUNet.py*
+- Use lung mask segmentation to pass in lobe segmentation results to nnU-Net
