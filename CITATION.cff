@@ -2,8 +2,10 @@ cff-version: 1.2.0
 message: "Citation details below."
 authors:
   - family-names: Wang
-    given-names: Zhaozhong (Alex0
+    given-names: Zhaozhong
     orcid: https://orcid.org/0000-0001-6194-0790
+  - family-names: Shailja
+    given-names: S.
 title: "Robust Method for 3D Lesion Segmentation of COVID-19 from Lung CT Scans"
 version: 0.0.1
 date-released: 2022-07-18
