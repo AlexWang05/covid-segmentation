@@ -1,1 +1,5 @@
 __pycache__/
+CottageWork/lobe_output/
+CottageWork/postprocessing/
+CottageWork/segmented_output/
+CottageWork/unet_segmented_output/

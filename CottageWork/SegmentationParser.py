@@ -41,8 +41,6 @@ class SegmentationParser:
 
                 # add present lesion nums
                 if (has_lesion):
-                    # 3rd dimension in shape STARTS at first nonempty
-                    # MAKE SURE --> start at nonempty and decreases in num
                     lesions.append(counter + 1)
 
             subject_dict[subject_id] = lesions

@@ -7,7 +7,7 @@ import sys
 
 # specify GPUs
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = '2'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 import numpy as np
 import torch
@@ -71,26 +71,17 @@ def get_xforms(mode="train", keys=("image", "label")):
 
 
 def get_net():
-    """returns a nnunet model instance."""
-
-    kernels=[[3, 3, 3], [3, 3, 3], [3, 3, 3], [3, 3, 3]]
-    strides=[[1, 1, 1], [2, 2, 2], [2, 2, 2], [2, 2, 2]]
+    """returns a unet model instance."""
 
     num_classes = 2
-
-    net = monai.networks.nets.DynUNet(
+    net = monai.networks.nets.BasicUNet(
         spatial_dims=3,
-        in_channels=6,
+        in_channels=1,
         out_channels=num_classes,
-        kernel_size=kernels,  # ?
-        strides=strides,  # ?
-        upsample_kernel_size=strides[1:],  # ?
-        # norm_name="instance",
-        # deep_supervision=True,
-        # deep_supr_num=deep_supr_num[task_id],
+        features=(32, 32, 64, 128, 256, 32),
+        dropout=0.1,
     )
-
-    return net   
+    return net  
 
 
 def get_inferer(_mode=None):
@@ -125,7 +116,7 @@ class DiceCELoss(nn.Module):
 
 
 
-def infer(data_folder=".", model_folder="/home/alex/nnunet_runs/500", prediction_folder="processed_segmented_output"):
+def infer(data_folder=".", model_folder="./home/alex/runs/300", prediction_folder="unet_segmented_output"):
     """
     run inference, the output folder will be "./segmented_output"
     """
@@ -184,7 +175,7 @@ def infer(data_folder=".", model_folder="/home/alex/nnunet_runs/500", prediction
 if __name__ == "__main__":
     """
     Usage:
-        python Infer_nnUNet.py infer --data_folder "/home/claire/data/nifti/COVID_nifti" # run the inference pipeline
+        python Infer_unet.py infer --data_folder "/home/claire/data/nifti/COVID_nifti" # run the inference pipeline
     """
     parser = argparse.ArgumentParser(description="Run a basic UNet segmentation baseline.")
     parser.add_argument(
