@@ -5,8 +5,14 @@ import nibabel as nib
 from tqdm import tqdm
 import numpy as np
 
+import gc
+import torch
+
+os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'     
+
 '''
-Add lobe segmentation to 3D NIFTI raw data in form of one-hot encoding
+Add lobe segmentation of scan in form of one-hot encoding to NIFTI raw data
 '''
 class LungLobeProcessing:
     def __init__(self, raw_folder='/home/claire/data/nifti/COVID_nifti', out_folder='/home/alex/CottageWork/lobe_output'):
@@ -21,7 +27,12 @@ class LungLobeProcessing:
         img = sitk.ReadImage(image_dir, imageIO='NiftiImageIO')
         model = mask.get_model('unet', 'LTRCLobes')
 
+        gc.collect()
+        torch.cuda.empty_cache()
+
+
         segmentation = mask.apply(img, model)
+        # segmentation = mask.apply(img, model, True)  # force cpu
 
         return segmentation
     
@@ -79,5 +90,6 @@ class LungLobeProcessing:
 
 
 if __name__ == '__main__':
-    processor = LungLobeProcessing()    
+    processor = LungLobeProcessing(raw_folder='/home/s_shailja/Fall2020/COVID-19-20_v2/Train', out_folder='/home/alex/CottageWork/lobe_challenge_output')
+    # processor = LungLobeProcessing()
     processor.apply()

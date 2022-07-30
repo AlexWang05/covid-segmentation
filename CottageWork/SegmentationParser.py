@@ -21,9 +21,17 @@ class SegmentationParser:
         # open segmentation folder, loop through all subjects
         for subject_id in tqdm(os.listdir(self.input_folder)):
             lesions = []
-            
+
             # load segmented mask
-            img = nib.load(os.path.join(self.input_folder, subject_id, subject_id + '_seg.nii.gz'))
+            
+            # COVID challenge data
+            # img = nib.load(os.path.join(self.input_folder, subject_id, subject_id + '_seg.nii.gz'))
+            
+            # cottage data
+            # print('SUBEJCT ID IN SEMGNETATION PARSER: ', subject_id)
+            img = nib.load(os.path.join(self.input_folder, subject_id))
+
+
             data = img.get_fdata()
             
             # print('SUBJECT ID: ', subject_id)
@@ -45,6 +53,9 @@ class SegmentationParser:
 
             subject_dict[subject_id] = lesions
     
+        print("SUBJECT DICT RETURNED: ", subject_dict)
+
+
         return subject_dict
 
     

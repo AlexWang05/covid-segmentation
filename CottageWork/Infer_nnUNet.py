@@ -7,7 +7,7 @@ import sys
 
 # specify GPUs
 os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
-os.environ['CUDA_VISIBLE_DEVICES'] = '2'
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 import numpy as np
 import torch
@@ -80,7 +80,7 @@ def get_net():
 
     net = monai.networks.nets.DynUNet(
         spatial_dims=3,
-        in_channels=6,
+        in_channels=1,
         out_channels=num_classes,
         kernel_size=kernels,  # ?
         strides=strides,  # ?
@@ -125,7 +125,7 @@ class DiceCELoss(nn.Module):
 
 
 
-def infer(data_folder=".", model_folder="/home/alex/nnunet_runs/500", prediction_folder="processed_segmented_output"):
+def infer(data_folder=".", model_folder="/home/alex/nnunet_runs/500", prediction_folder="PNA_segmented_output"):
     """
     run inference, the output folder will be "./segmented_output"
     """

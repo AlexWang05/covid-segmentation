@@ -6,6 +6,7 @@ import nibabel as nib
 from tqdm import tqdm
 # clear cache, prevent memory error
 import torch
+import gc
 torch.cuda.empty_cache()
 
 '''
@@ -59,13 +60,17 @@ class PostProcessing:
 
             # save in new folder
             out_dir = os.path.join(self.out_folder, subject_id, subject_id + '_seg.nii.gz')
-            # out_dir = '/home/alex/inference_postprocessing/volume-covid19-A-0620_ct/volume-covid19-A-0620_ct_seg.nii.gz'
+            out_dir = os.path.join(self.out_folder, subject_id + '.nii.gz')
 
             save_img = nib.Nifti1Image(data, affine=np.eye(4))
             nib.save(save_img, out_dir)
             print("FILE WRITTEN at " + out_dir)
 
+            torch.cuda.empty_cache()
+            gc.collect()
+
 if __name__ == '__main__':
     # processor = PostProcessing()
     # processor = PostProcessing('../inference_outputs/nnUNet_500', "/home/s_shailja/Fall2020/COVID-19-20_v2/Validation", '/home/alex/inference_postprocessing')
+    processor = PostProcessing('/home/claire/data/segmented2/PNA', '/home/claire/data/nifti/PNA_nifti', './PNA_postprocessing')
     processor.apply()
