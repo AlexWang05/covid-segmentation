@@ -3,3 +3,6 @@ CottageWork/lobe_output/
 CottageWork/postprocessing/
 CottageWork/segmented_output/
 CottageWork/unet_segmented_output/
+
+CottageWork/annotated.csv
+CottageWork/annotated_pna.csv
