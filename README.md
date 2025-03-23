@@ -1,3 +1,6 @@
+## Synopsis
+This repo stores partial artifacts of training nnU-Net and U-Net-based models for the robust segmentation of COVID-19 lesions in lung CT scans. The repo contains training scripts, checkpoints, and additional scripts for maximum intensity projection, lung lobe segmentation extraction, and result checking using a dataset from the Santa Barbara Cottage Hospital.
+
 ## Introduction
 - Saved models are saved in ```./runs``` (for U-Net) and ```./nnunet_runs``` (nnU-Net)
     - Subdirectories represent Epoch number for training
